@@ -1,8 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #f0f0f0;
+  --accent: #00ff8c;
+  --secondary: #8c00ff;
+  --highlight: #ff00ff;
+  --dark-bg: #050505;
+  --terminal-green: #00ff8c;
+  --card-bg: rgba(25, 25, 25, 0.8);
+  --glow: 0 0 10px var(--accent), 0 0 20px rgba(0, 255, 140, 0.3);
 }
 
 @theme inline {
@@ -22,5 +29,284 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes loadingBar {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+@keyframes glitchAnimation {
+  0% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  10% {
+    transform: translate(-2px, 2px);
+    filter: hue-rotate(45deg);
+  }
+  20% {
+    transform: translate(2px, -2px);
+    filter: hue-rotate(90deg);
+  }
+  30% {
+    transform: translate(-2px, 0);
+    filter: hue-rotate(135deg);
+  }
+  40% {
+    transform: translate(2px, 2px);
+    filter: hue-rotate(180deg);
+  }
+  50% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--accent), var(--highlight));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glow-text {
+  text-shadow: 0 0 5px var(--accent), 0 0 15px rgba(0, 255, 140, 0.5);
+}
+
+.glow-border {
+  box-shadow: var(--glow);
+}
+
+.terminal-text {
+  color: var(--terminal-green);
+  font-family: var(--font-mono);
+}
+
+.scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: rgba(0, 255, 140, 0.2);
+  opacity: 0.6;
+  animation: scan 4s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 255, 140, 0.15);
+  border-color: rgba(0, 255, 140, 0.3);
+}
+
+.terminal {
+  background: var(--dark-bg);
+  border: 1px solid var(--accent);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  font-family: var(--font-mono);
+}
+
+.terminal::before {
+  content: "> ";
+  color: var(--accent);
+}
+
+/* Pour les boutons de style "hacker" */
+.hacker-btn {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.hacker-btn:hover {
+  background: rgba(0, 255, 140, 0.1);
+  box-shadow: 0 0 15px rgba(0, 255, 140, 0.5);
+}
+
+.hacker-btn::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: -100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 140, 0.2), transparent);
+  transition: all 0.5s;
+}
+
+.hacker-btn:hover::after {
+  left: 100%;
+}
+
+.hacker-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Styles pour les projets en cours */
+.pending-project {
+  position: relative;
+  overflow: hidden;
+}
+
+.pending-project::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, transparent, rgba(234, 179, 8, 0.5), transparent);
+  animation: pendingPulse 2s infinite;
+  z-index: 1;
+}
+
+@keyframes pendingPulse {
+  0% {
+    opacity: 0.5;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 0.8;
+    transform: translateX(100%);
+  }
+}
+
+.pending-project:hover {
+  box-shadow: 0 5px 15px rgba(234, 179, 8, 0.15);
+  border-color: rgba(234, 179, 8, 0.3);
+}
+
+/* Bruit numérique */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.3;
+}
+
+/* Animation de clignotement */
+.animate-blink {
+  animation: blink 1s infinite;
+}
+
+/* Effet de glitch */
+.glitch {
+  animation: glitchAnimation 0.5s ease-in-out;
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  z-index: -1;
+}
+
+.glitch::before {
+  background: rgba(255, 0, 255, 0.1);
+  transform: translate(-5px, 0);
+}
+
+.glitch::after {
+  background: rgba(0, 255, 255, 0.1);
+  transform: translate(5px, 0);
+}
+
+/* Animation d'écriture de terminal */
+.typing-animation {
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  animation: typing 2s steps(40, end);
+  border-right: 2px solid var(--accent);
+  padding-right: 2px;
+}
+
+/* Scrollbar personnalisée pour l'interface admin */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 140, 0.3);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 140, 0.5);
 }

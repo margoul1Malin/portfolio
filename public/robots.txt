@@ -1,0 +1,22 @@
+# Portfolieau - Configuration du robots.txt
+User-agent: *
+
+# Autoriser l'accès à la plupart des fichiers
+Allow: /
+
+# Disallow zones privées et administratives
+Disallow: /admin
+Disallow: /login-challenge
+
+# Disallow chemins de test et développement
+Disallow: /api/
+Disallow: /test/
+Disallow: /dev/
+
+# Flag caché dans le robots.txt
+# Voulez-vous trouver un trésor caché?
+Disallow: /is-1t-a-fl4g
+# Indice: visitez cette URL pour découvrir un secret
+
+# Informations supplémentaires
+Sitemap: https://example.com/sitemap.xml 
