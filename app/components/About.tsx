@@ -217,7 +217,7 @@ const About = () => {
                   {[
                     {
                       title: "Développeur Full Stack",
-                      period: "Since 2020",
+                      period: "Since 2018",
                       description: "Développement d'applications web sécurisées avec des frameworks modernes comme Next.js ou Django"
                     },
                     {

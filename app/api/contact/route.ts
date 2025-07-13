@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createContactMessage } from '@/app/lib/db';
+import { sendContactNotification } from '@/app/lib/email';
 
 export async function POST(request: Request) {
   try {
@@ -30,10 +31,24 @@ export async function POST(request: Request) {
       message
     });
 
+    // Envoyer l'email de notification
+    const emailResult = await sendContactNotification({
+      name,
+      email,
+      subject,
+      message
+    });
+
+    if (!emailResult.success) {
+      console.error('Erreur lors de l\'envoi de l\'email de notification:', emailResult.error);
+      // On continue même si l'email échoue, le message est sauvegardé
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Message envoyé avec succès',
-      data: contactMessage
+      data: contactMessage,
+      emailSent: emailResult.success
     }, { status: 201 });
     
   } catch (error) {

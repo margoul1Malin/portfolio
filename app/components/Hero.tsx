@@ -90,8 +90,8 @@ const Hero = () => {
               variants={itemVariants}
               className="text-4xl md:text-6xl font-bold mb-4"
             >
-              <span className="text-gradient">Développeur</span>{' '}
-              <span className="glow-text">& Hacker</span>
+              <span className="text-gradient">Services</span>{' '}
+              <span className="glow-text">& Cybersécurité</span>
             </motion.h1>
             
             <motion.p 

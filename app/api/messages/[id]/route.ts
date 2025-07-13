@@ -15,9 +15,11 @@ export async function PUT(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   { params }: any
 ) {
+  let messageId: string | undefined;
   try {
     console.log('[DEBUG] Route PUT /api/messages/[id] appelée');
-    const messageId = params.id;
+    const awaitedParams = await params;
+    messageId = awaitedParams.id;
     console.log('[DEBUG] ID du message:', messageId);
     
     const authHeader = request.headers.get('authorization');
@@ -61,7 +63,7 @@ export async function PUT(
     const prismaError = error as PrismaError;
     
     if (prismaError.code === 'P2025' || prismaError.name === 'NotFoundError') {
-      console.log('[DEBUG] Erreur: Message non trouvé:', params?.id);
+      console.log('[DEBUG] Erreur: Message non trouvé:', messageId || 'ID inconnu');
       return NextResponse.json(
         { error: 'Message non trouvé' },
         { status: 404 }
@@ -82,9 +84,11 @@ export async function DELETE(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   { params }: any
 ) {
+  let messageId: string | undefined;
   try {
     console.log('[DEBUG] Route DELETE /api/messages/[id] appelée');
-    const messageId = params.id;
+    const awaitedParams = await params;
+    messageId = awaitedParams.id;
     console.log('[DEBUG] ID du message:', messageId);
     
     const authHeader = request.headers.get('authorization');
@@ -127,7 +131,7 @@ export async function DELETE(
     const prismaError = error as PrismaError;
     
     if (prismaError.code === 'P2025' || prismaError.name === 'NotFoundError') {
-      console.log('[DEBUG] Erreur: Message non trouvé:', params?.id);
+      console.log('[DEBUG] Erreur: Message non trouvé:', messageId || 'ID inconnu');
       return NextResponse.json(
         { error: 'Message non trouvé' },
         { status: 404 }

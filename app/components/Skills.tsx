@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { FaReact, FaPython, FaDatabase, FaLinux, FaGithub, FaWindows, FaCode, FaLock, FaWifi, FaSearch, FaShieldAlt, FaUsers } from "react-icons/fa";
-import { SiTypescript, SiNextdotjs, SiTailwindcss, SiC, SiMongodb, SiGnubash } from "react-icons/si";
+import { SiTypescript, SiNextdotjs, SiTailwindcss, SiC, SiMongodb, SiGnubash, SiRabbitmq, SiDocker } from "react-icons/si";
 import { HiOutlineEye } from "react-icons/hi";
 
 interface Skill {
@@ -42,6 +42,8 @@ const Skills = () => {
     { name: 'Linux', level: 75, category: 'computer', icon: <FaLinux className="text-[#FCC624] text-2xl" /> },
     { name: 'Git', level: 70, category: 'computer', icon: <FaGithub className="text-white text-2xl" /> },
     { name: 'Active Directory', level: 40, category: 'computer', icon: <FaUsers className="text-[#5C2D91] text-2xl" /> },
+    { name: 'Docker', level: 20, category: 'computer', icon: <SiDocker className="text-[#2496ED] text-2xl" /> },
+    { name: 'RabbitMQ', level: 20, category: 'computer', icon: <SiRabbitmq className="text-[#2496ED] text-2xl" /> },
   ];
   
   // Correction du filtrage: faire correspondre activeFilter avec les catégories exactes
