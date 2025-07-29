@@ -19,7 +19,31 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Portfolio | Développeur & Hacker",
   description: "Portfolio de développeur, programmeur et hacker spécialisé en cybersécurité et développement web",
-  keywords: ["développeur", "programmeur", "hacker", "cybersécurité", "portfolio", "web"],
+  keywords: ["développeur", "programmeur", "hacker", "cybersécurité", "portfolio", "web", "margoul1", "oxelya", "watson", "drhead", "aosint", "godseye", "rubberduckies", "hakboard", "oxelya shop"],
+  authors: [{ name: "Margoul1", url: "https://www.margoul1.xyz" }],
+  creator: "Margoul1",
+  publisher: "Margoul1",
+  openGraph: {
+    title: "Portfolio | Développeur & Hacker",
+    description: "Portfolio de développeur, programmeur et hacker spécialisé en cybersécurité et développement web",
+    url: "https://www.margoul1.xyz",
+    siteName: "Portfolio | Développeur & Hacker",
+    images: [
+      { url: "https://www.margoul1.xyz/", width: 1200, height: 630, alt: "Portfolio | Développeur & Hacker" },
+    ],
+    locale: "fr_FR",
+  },
+  alternates: {
+    canonical: "https://www.margoul1.xyz",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+  
 };
 
 export default function RootLayout({
