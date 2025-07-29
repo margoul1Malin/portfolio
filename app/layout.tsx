@@ -18,12 +18,13 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Portfolio | Développeur & Hacker",
-  description: "Portfolio de développeur, programmeur et hacker spécialisé en cybersécurité et développement web",
+  description: "Portfolio de développeur, programmeur et hacker spécialisé en cybersécurité et développement web. Je fais tout ce que vous voulez.",
   keywords: ["développeur", "programmeur", "hacker", "cybersécurité", "portfolio", "web", "margoul1", "oxelya", "watson", "drhead", "aosint", "godseye", "rubberduckies", "hakboard", "oxelya shop"],
   authors: [{ name: "Margoul1", url: "https://www.margoul1.xyz" }],
   creator: "Margoul1",
   publisher: "Margoul1",
   openGraph: {
+  	type: "website",
     title: "Portfolio | Développeur & Hacker",
     description: "Portfolio de développeur, programmeur et hacker spécialisé en cybersécurité et développement web",
     url: "https://www.margoul1.xyz",
