@@ -2,8 +2,10 @@
 
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { FaEnvelope, FaMapMarkerAlt, FaGithub, FaTwitter, FaLock, FaDiscord } from 'react-icons/fa';
+import { FaEnvelope, FaMapMarkerAlt, FaGithub, FaTwitter, FaLock, FaInstagram } from 'react-icons/fa';
 import {SiSession} from 'react-icons/si';
+import Link from 'next/link';
+import { useJsDetection } from '../lib/js-detection';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +20,8 @@ const Contact = () => {
     type: 'success' | 'error' | null;
     message: string;
   }>({ type: null, message: '' });
+  
+  const { jsAvailable } = useJsDetection();
   
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -69,6 +73,156 @@ const Contact = () => {
     }
   };
   
+  // Version statique pour les bots
+  if (!jsAvailable) {
+    return (
+      <section id="contact" className="py-20 relative">
+        <div className="absolute inset-0 z-0 opacity-5">
+          <div className="absolute inset-0 bg-[url('/circuit-pattern.png')] bg-repeat"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              <span className="terminal-text">./</span>
+              <span className="text-gradient">Contact</span>
+            </h2>
+            <div className="w-24 h-1 bg-[#00ff8c] mx-auto rounded-full"></div>
+            <p className="mt-4 max-w-2xl mx-auto text-gray-300">
+              Vous avez un projet en tête ou souhaitez simplement discuter? N&apos;hésitez pas à me contacter.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div className="md:col-span-5 terminal p-6 backdrop-blur-sm relative group">
+              <div className="mb-4 flex items-center">
+                <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                <div className="flex-1 text-center text-xs text-gray-500">contact</div>
+              </div>
+              
+              <div className="space-y-4 font-mono text-sm">
+                <div className="flex items-center gap-3">
+                  <FaEnvelope className="text-[#00ff8c] text-lg" />
+                  <span className="text-gray-300">Email:</span>
+                  <a href="mailto:contact@oxelya.com" className="text-[#00ff8c] hover:underline">
+                    contact@oxelya.com
+                  </a>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <FaMapMarkerAlt className="text-[#00ff8c] text-lg" />
+                  <span className="text-gray-300">Localisation:</span>
+                  <span className="text-[#00ff8c]">France</span>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <FaGithub className="text-[#00ff8c] text-lg" />
+                  <span className="text-gray-300">GitHub:</span>
+                  <a href="https://github.com/margoul1Malin" target="_blank" rel="noopener noreferrer" className="text-[#00ff8c] hover:underline">
+                    @margoul1Malin
+                  </a>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <FaTwitter className="text-[#00ff8c] text-lg" />
+                  <span className="text-gray-300">Twitter:</span>
+                  <a href="https://x.com/@OxelyaFr" target="_blank" rel="noopener noreferrer" className="text-[#00ff8c] hover:underline">
+                    @OxelyaFr
+                  </a>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <FaInstagram className="text-[#00ff8c] text-lg" />
+                  <span className="text-gray-300">Instagram:</span>
+                  <a href="https://instagram.com/oxelya.fr" target="_blank" rel="noopener noreferrer" className="text-[#00ff8c] hover:underline">
+                    @oxelya.fr
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <div className="md:col-span-7">
+              <div className="card p-6 backdrop-blur-sm border border-white/10">
+                <h3 className="text-2xl font-bold mb-6 text-gradient">Envoyez-moi un message</h3>
+                
+                <form className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                        Nom complet
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        className="w-full px-4 py-3 rounded-md border border-white/20 bg-white/5 text-white placeholder-gray-400 focus:border-[#00ff8c] focus:outline-none transition-colors"
+                        placeholder="Votre nom"
+                        disabled
+                      />
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        className="w-full px-4 py-3 rounded-md border border-white/20 bg-white/5 text-white placeholder-gray-400 focus:border-[#00ff8c] focus:outline-none transition-colors"
+                        placeholder="votre@email.com"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
+                      Sujet
+                    </label>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      className="w-full px-4 py-3 rounded-md border border-white/20 bg-white/5 text-white placeholder-gray-400 focus:border-[#00ff8c] focus:outline-none transition-colors"
+                      placeholder="Sujet de votre message"
+                      disabled
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={6}
+                      className="w-full px-4 py-3 rounded-md border border-white/20 bg-white/5 text-white placeholder-gray-400 focus:border-[#00ff8c] focus:outline-none transition-colors resize-none"
+                      placeholder="Votre message..."
+                      disabled
+                    ></textarea>
+                  </div>
+                  
+                  <button
+                    type="submit"
+                    className="w-full hacker-btn py-3 px-6 rounded-md text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                  >
+                    JavaScript requis pour envoyer le message
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Version interactive pour les utilisateurs
   return (
     <section id="contact" className="py-20 relative">
       <div className="absolute inset-0 z-0 opacity-5">
@@ -134,7 +288,7 @@ const Contact = () => {
                   href="mailto:contact@example.com" 
                   className="mt-2 block text-gray-300 hover:text-white transition-colors pl-8"
                 >
-                  margoul1dev@gmail.com
+                  contact@oxelya.com
                 </a>
               </motion.div>
               
@@ -158,7 +312,7 @@ const Contact = () => {
                   <h4 className="text-base font-medium">Réseaux sociaux</h4>
                 </div>
                 <div className="mt-3 flex flex-wrap gap-3 pl-8">
-                  <a 
+                  <Link 
                     href="https://github.com/margoul1Malin" 
                     target="_blank" 
                     rel="noopener noreferrer" 
@@ -166,25 +320,25 @@ const Contact = () => {
                   >
                     <FaGithub className="mr-2" />
                     <span>GitHub</span>
-                  </a>
-                  <a 
-                    href="https://x.com/PinokioS1ffredi" 
+                  </Link>
+                  <Link 
+                    href="https://x.com/@OxelyaFr" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="flex items-center bg-black/60 px-3 py-2 rounded-md border border-[#00ff8c]/20 hover:border-[#00ff8c]/60 transition-all"
                   >
                     <FaTwitter className="mr-2" />
                     <span>Twitter</span>
-                  </a>
-                  <a
-                    href="https://discord.gg/margoulins"
+                  </Link>
+                  <Link
+                    href="https://instagram.com/oxelya.fr"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center bg-black/60 px-3 py-2 rounded-md border border-[#00ff8c]/20 hover:border-[#00ff8c]/60 transition-all"
                   >
-                    <FaDiscord className="mr-2" />
-                    <span>Discord</span>
-                  </a>
+                    <FaInstagram className="mr-2" />
+                    <span>Instagram</span>
+                  </Link>
                 </div>
               </motion.div>
               
@@ -230,6 +384,8 @@ const Contact = () => {
               <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
               <div className="flex-1 text-center text-xs text-gray-500">new_message.sh</div>
             </div>
+            
+            <h3 className="text-2xl font-bold mb-6 text-gradient">Envoyez-moi un message</h3>
             
             <form onSubmit={handleSubmit} className="space-y-6 my-auto">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

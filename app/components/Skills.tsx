@@ -2,9 +2,10 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { FaReact, FaPython, FaDatabase, FaLinux, FaGithub, FaWindows, FaCode, FaLock, FaWifi, FaSearch, FaShieldAlt, FaUsers } from "react-icons/fa";
-import { SiTypescript, SiNextdotjs, SiTailwindcss, SiC, SiMongodb, SiGnubash, SiRabbitmq, SiDocker } from "react-icons/si";
+import { FaPython, FaDatabase, FaLinux, FaGithub, FaWindows, FaCode, FaLock, FaWifi, FaSearch, FaShieldAlt, FaUsers, FaTools } from "react-icons/fa";
+import { SiC, SiMongodb, SiGnubash, SiRabbitmq, SiDocker } from "react-icons/si";
 import { HiOutlineEye } from "react-icons/hi";
+import { useJsDetection } from '../lib/js-detection';
 
 interface Skill {
   name: string;
@@ -15,27 +16,24 @@ interface Skill {
 
 const Skills = () => {
   const [activeFilter, setActiveFilter] = useState<string>('all');
+  const { jsAvailable } = useJsDetection();
   
   const skills: Skill[] = [
-    // Frontend
-    { name: 'React', level: 75, category: 'frontend', icon: <FaReact className="text-[#61DAFB] text-2xl" /> },
-    { name: 'TypeScript', level: 75, category: 'frontend', icon: <SiTypescript className="text-[#3178C6] text-2xl" /> },
-    { name: 'Next.js', level: 75, category: 'frontend', icon: <SiNextdotjs className="text-white text-2xl" /> },
-    { name: 'CSS/Tailwind', level: 95, category: 'frontend', icon: <SiTailwindcss className="text-[#06B6D4] text-2xl" /> },
-    
-    // Backend
+    // Programmation
     { name: 'Python', level: 85, category: 'backend', icon: <FaPython className="text-[#3776AB] text-2xl" /> },
     { name: 'SQL', level: 50, category: 'backend', icon: <FaDatabase className="text-[#FF9900] text-2xl" /> },
     { name: 'NoSQL', level: 50, category: 'backend', icon: <SiMongodb className="text-[#47A248] text-2xl" /> },
     { name: 'C/C++', level: 15, category: 'backend', icon: <SiC className="text-[#A8B9CC] text-2xl" /> },
     { name: 'PowerShell', level: 20, category: 'backend', icon: <FaCode className="text-[#5391FE] text-2xl" /> },
     { name: 'Bash / Zsh', level: 40, category: 'backend', icon: <SiGnubash className="text-[#5391FE] text-2xl" /> },
-    // Sécurité
+    
+    // Pentesting
     { name: 'Pentesting', level: 45, category: 'security', icon: <FaShieldAlt className="text-[#ff3e00] text-2xl" /> },
     { name: 'Forensics', level: 45, category: 'security', icon: <FaSearch className="text-[#E6E6E6] text-2xl" /> },
     { name: 'Cryptographie', level: 30, category: 'security', icon: <FaLock className="text-[#FFD700] text-2xl" /> },
     { name: 'Réseau', level: 65, category: 'security', icon: <FaWifi className="text-[#00BFFF] text-2xl" /> },
     { name: 'OSINT', level: 80, category: 'security', icon: <HiOutlineEye className="text-[#9ACD32] text-2xl" /> },
+    { name: 'Gadgets', level: 80, category: 'security', icon: <FaTools className="text-[#9ACD32] text-2xl" /> },
     
     // DevOps
     { name: 'Windows', level: 53, category: 'computer', icon: <FaWindows className="text-[#0078D6] text-2xl" /> },
@@ -89,6 +87,71 @@ const Skills = () => {
     visible: { y: 0, opacity: 1 }
   };
   
+  // Version statique pour les bots
+  if (!jsAvailable) {
+    return (
+      <section id="competences" className="py-20 relative">
+        <div className="absolute inset-0 z-0 opacity-5">
+          <div className="absolute inset-0 bg-[url('/circuit-pattern.png')] bg-repeat"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              <span className="terminal-text">./</span>
+              <span className="text-gradient">Compétences</span>
+            </h2>
+            <div className="w-24 h-1 bg-[#00ff8c] mx-auto rounded-full"></div>
+            <div className="h-px max-w-sm mx-auto mt-6 bg-gradient-to-r from-transparent via-[#00ff8c]/50 to-transparent"></div>
+          </div>
+
+          <div className="mb-8">
+            <div className="flex flex-wrap justify-center gap-4">
+              <button className="px-6 py-2 rounded-full border border-[#00ff8c] bg-[#00ff8c]/10 text-[#00ff8c] font-medium">
+                Toutes
+              </button>
+              <button className="px-6 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 hover:text-[#00ff8c] transition-colors">
+                Backend
+              </button>
+              <button className="px-6 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 hover:text-[#00ff8c] transition-colors">
+                Sécurité
+              </button>
+              <button className="px-6 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 hover:text-[#00ff8c] transition-colors">
+                Système
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {skills.map((skill, index) => (
+              <div
+                key={index}
+                className="card p-6 backdrop-blur-sm border border-white/10 hover:border-[#00ff8c]/30 transition-all duration-300"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  {skill.icon}
+                  <div>
+                    <h3 className="font-semibold text-lg">{skill.name}</h3>
+                    <div className="flex items-center gap-2">
+                      <div className="w-32 h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-[#00ff8c] to-[#00ff8c]/70 rounded-full"
+                          style={{ width: `${skill.level}%` }}
+                        ></div>
+                      </div>
+                      <span className="text-sm text-gray-400">{skill.level}%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Version interactive pour les utilisateurs
   return (
     <section id="competences" className="py-20 relative">
       <div className="absolute inset-0 z-0 opacity-5">

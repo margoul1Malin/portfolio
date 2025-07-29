@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useJsDetection } from '../lib/js-detection';
 
 // Composant pour les liens de navigation
 const NavLink = ({ href, active, onClick, children }: {
@@ -35,9 +36,12 @@ const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [displayText, setDisplayText] = useState('');
   const [animationComplete, setAnimationComplete] = useState(false);
+  const { jsAvailable } = useJsDetection();
   
-  // Effet de typographie pour simuler un terminal
+  // Effet de typographie pour simuler un terminal (seulement si JS disponible)
   useEffect(() => {
+    if (!jsAvailable) return;
+    
     const text = "margoul1 portfolio";
     let currentIndex = 0;
     
@@ -52,9 +56,11 @@ const NavBar = () => {
     }, 150);
     
     return () => clearInterval(interval);
-  }, []);
+  }, [jsAvailable]);
   
   useEffect(() => {
+    if (!jsAvailable) return;
+    
     const handleScroll = () => {
       // Changer l'apparence de la navbar au scroll
       setScrolled(window.scrollY > 50);
@@ -78,7 +84,7 @@ const NavBar = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [jsAvailable]);
   
   // Vérifier si on est sur une page spéciale
   const isSpecialPage = pathname !== '/';
@@ -90,6 +96,64 @@ const NavBar = () => {
     setMenuOpen(!menuOpen);
   };
   
+  // Version statique pour les bots
+  if (!jsAvailable) {
+    return (
+      <header className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md py-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center">
+            {/* Logo */}
+            <div className="flex items-center">
+              <Link href="/" className="flex items-center">
+                <span className="glow-text terminal-text font-bold text-lg mr-1">margoul1 portfolio</span>
+                <span className="animate-pulse">_</span>
+                
+                {/* Indice cookies dans un commentaire HTML discret */}
+                <span 
+                  className="sr-only" 
+                  title="Des cookies secrets se cachent peut-être sur ce site..."
+                  dangerouslySetInnerHTML={{ 
+                    __html: '<!-- Indice pour les chasseurs de flags: vérifiez vos cookies ! -->' 
+                  }}
+                />
+              </Link>
+            </div>
+            
+            {/* Menu pour desktop */}
+            <div className="hidden md:flex items-center space-x-8">
+              <Link href="/#accueil" className="hover:text-[#00ff8c] transition-colors py-1 text-[#00ff8c]">
+                ./accueil
+              </Link>
+              <Link href="/#apropos" className="hover:text-[#00ff8c] transition-colors py-1 text-gray-300">
+                ./à_propos
+              </Link>
+              <Link href="/#competences" className="hover:text-[#00ff8c] transition-colors py-1 text-gray-300">
+                ./compétences
+              </Link>
+              <Link href="/#projets" className="hover:text-[#00ff8c] transition-colors py-1 text-gray-300">
+                ./projets
+              </Link>
+              <Link href="/#contact" className="hover:text-[#00ff8c] transition-colors py-1 text-gray-300">
+                ./contact
+              </Link>
+              <Link href="/login-challenge" className="hover:text-[#00ff8c] transition-colors py-1 text-[#ff00ff]">
+                ./admin
+              </Link>
+            </div>
+            
+            {/* Bouton menu mobile */}
+            <div className="md:hidden flex items-center">
+              <button className="hacker-btn py-1 px-3 rounded">
+                ≡
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+    );
+  }
+  
+  // Version interactive pour les utilisateurs
   return (
     <motion.header 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${

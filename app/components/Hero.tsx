@@ -2,9 +2,11 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { useJsDetection } from '../lib/js-detection';
 
 const Hero = () => {
   const [text, setText] = useState('');
+  const { jsAvailable } = useJsDetection();
   const fullTextLines = useMemo(() => [
     '> Initialisation système...',
     '> Chargement profil...',
@@ -16,8 +18,12 @@ const Hero = () => {
   const [charIndex, setCharIndex] = useState(0);
   const [displayedLines, setDisplayedLines] = useState<string[]>([]);
   
-  // Effet de typing terminal
+
+  
+  // Effet de typing terminal (seulement si JS disponible)
   useEffect(() => {
+    if (!jsAvailable) return;
+    
     if (currentLine < fullTextLines.length) {
       const typingInterval = setInterval(() => {
         if (charIndex < fullTextLines[currentLine].length) {
@@ -34,7 +40,7 @@ const Hero = () => {
       
       return () => clearInterval(typingInterval);
     }
-  }, [currentLine, charIndex, displayedLines, text, fullTextLines]);
+  }, [currentLine, charIndex, displayedLines, text, fullTextLines, jsAvailable]);
   
   // Animation variables
   const containerVariants = {
@@ -47,6 +53,78 @@ const Hero = () => {
     visible: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 100 } }
   };
   
+  // Version statique pour les bots
+  if (!jsAvailable) {
+    return (
+      <section id="accueil" className="min-h-screen pt-20 relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-80"></div>
+          <div className="absolute inset-0 bg-[url('/matrix-bg.jpg')] opacity-10"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-[calc(100vh-80px)] flex flex-col justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="terminal p-6 mb-8 md:mb-0">
+              <div className="mb-4 flex items-center">
+                <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                <div className="flex-1 text-center text-xs text-gray-500">terminal</div>
+              </div>
+              
+              <div className="font-mono">
+                <div className="text-green-400">{'>'} Initialisation système...</div>
+                <div className="text-green-400">{'>'} Chargement profil...</div>
+                <div className="text-green-400">{'>'} Accès autorisé</div>
+                <div className="text-green-400">{'>'} Type: Hacker / Développeur / Programmeur & Plus...</div>
+                <div className="text-green-400">{'>'} Bienvenue sur mon portfolio</div>
+                <div className="flex items-center">
+                  <span className="text-green-400">_</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="text-center md:text-left">
+              <h1 className="text-4xl md:text-6xl font-bold mb-4">
+                <span className="text-gradient">Services</span>{' '}
+                <span className="glow-text">& Cybersécurité</span>
+              </h1>
+              
+              <p className="mb-8 text-xl opacity-80">
+                Je transforme les idées en <span className="text-[#00ff8c]">code.</span> Puis je vous montre comment les <span className="text-[#00ff8c]">sécuriser.</span> Et plus <span className="text-[#00ff8c]">encore...</span>
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <a 
+                  href="#projets" 
+                  className="hacker-btn py-3 px-8 rounded-md text-lg font-medium"
+                >
+                  Voir mes projets
+                </a>
+                <a 
+                  href="#contact" 
+                  className="py-3 px-8 rounded-md border border-white/30 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 text-lg font-medium"
+                >
+                  Me contacter
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+          <a href="#apropos" className="flex flex-col items-center text-sm opacity-60 hover:opacity-100 transition-opacity">
+            <span className="mb-2">Défiler</span>
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </a>
+        </div>
+      </section>
+    );
+  }
+  
+  // Version interactive pour les utilisateurs
   return (
     <section id="accueil" className="min-h-screen pt-20 relative overflow-hidden">
       <div className="absolute inset-0 z-0">

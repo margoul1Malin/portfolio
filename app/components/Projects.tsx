@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useJsDetection } from '../lib/js-detection';
 
 interface Project {
   id: string;
@@ -20,6 +21,7 @@ interface Project {
 
 const Projects = () => {
   const [filter, setFilter] = useState<string>('all');
+  const { jsAvailable } = useJsDetection();
   
   const projects: Project[] = [
     {
@@ -28,6 +30,7 @@ const Projects = () => {
       description: 'Module Python pour la recherche de comptes sur 300+ plateformes. Simple à appréhender et très efficace (plus que Sherlock).',
       tags: ['Python', 'JSON', 'OSINT', 'Cybersécurité'],
       imageUrl: '/projects/Watson.png',
+      demoUrl: 'https://pypi.org/project/watson-osint/',
       codeUrl: 'https://github.com/margoul1Malin/watson',
       pending: false,
       star: true
@@ -44,33 +47,33 @@ const Projects = () => {
     },
     {
       id: 'g0sint',
-      title: 'G0sint',
+      title: 'aOsint',
       description: 'Ce sera LE framework OSINT pour les hackers. Simple à appréhender et très efficace.',
       tags: ['OSINT', 'RabbitMQ', 'Python', 'Bash', 'Node.js'],
       imageUrl: '/projects/aosint.png',
-      demoUrl: 'https://gosint.fr',
+      codeUrl: 'https://github.com/margoul1Malin',
       pending: true,
+      pendingMessage: 'En cours de développement...',
       star: false
     },
     {
       id: 'rubberchickens',
-      title: 'Rubber Chickens',
+      title: 'Rubber Ducky Pi (Wifi)',
       description: 'Des Raspberry Pi traffiqués qui deviennent des rubber duckies en encore meilleures avec leur propre programme pour simplifier la vie des utilisateurs.',
       tags: ['Python', 'Raspberry Pi', 'MicroPython', 'Cybersécurité'],
       imageUrl: '/projects/chicken.webp',
-      codeUrl: 'https://margoul1.xyz',
+      codeUrl: 'https://www.oxelya-shop.fr',
       pending: true,
       pendingMessage: 'Prototypes faits.',
       star: false
     },
     {
       id: 'keygarden',
-      title: 'KeyGarden',
-      description: 'Un jardin pour stocker vos mots de passse entre vos mains',
-      tags: ['Python', 'PyQt5'],
+      title: 'GodsEye',
+      description: 'L\'Oeil de Dieu comme dans Fast & Furious.',
+      tags: ['Python', 'PyQt5', 'Cybersécurité', 'OSINT'],
       imageUrl: '/projects/KeyGarden.png',
-      demoUrl: 'https://keygarden.org',
-      codeUrl: 'https://github.com/margoul1Malin/keygarden',
+      codeUrl: 'https://github.com/margoul1Malin',
       pending: true,
       pendingMessage: 'Arrivera plus tard...',
       star: false
@@ -81,7 +84,7 @@ const Projects = () => {
       description: 'Une malette à outil impressionante pour les pentesters. Afin de faciliter leur travail qui n\'est pas toujours de tout repos.',
       tags: ['JavaScript', 'Electron', 'Cybersécurité'],
       imageUrl: '/projects/hakboard.png',
-      codeUrl: 'https://github.com/margoul1Malin/hakboard',
+      codeUrl: 'https://github.com/margoul1Malin',
       pending: true,
       pendingMessage: 'Version 1 bientôt disponible.',
       star: false
@@ -97,7 +100,124 @@ const Projects = () => {
       : filter === 'JavaScript'
         ? projects.filter(project => project.tags.some(tag => jsTags.includes(tag)))
         : projects.filter(project => project.tags.includes(filter));
-  
+
+  // Version statique pour les bots
+  if (!jsAvailable) {
+    return (
+      <section id="projets" className="py-20 relative">
+        <div className="absolute inset-0 z-0 opacity-5">
+          <div className="absolute inset-0 bg-[url('/circuit-pattern.png')] bg-repeat"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              <span className="terminal-text">./</span>
+              <span className="text-gradient">Projets</span>
+            </h2>
+            <div className="w-24 h-1 bg-[#00ff8c] mx-auto rounded-full"></div>
+            <div className="h-px max-w-sm mx-auto mt-6 bg-gradient-to-r from-transparent via-[#00ff8c]/50 to-transparent"></div>
+          </div>
+
+          <div className="mb-8">
+            <div className="flex flex-wrap justify-center gap-4">
+              <button className="px-6 py-2 rounded-full border border-[#00ff8c] bg-[#00ff8c]/10 text-[#00ff8c] font-medium">
+                Tous
+              </button>
+              <button className="px-6 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 hover:text-[#00ff8c] transition-colors">
+                En vedette
+              </button>
+              <button className="px-6 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 hover:text-[#00ff8c] transition-colors">
+                JavaScript
+              </button>
+              <button className="px-6 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 hover:text-[#00ff8c] transition-colors">
+                Python
+              </button>
+              <button className="px-6 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 hover:text-[#00ff8c] transition-colors">
+                Cybersécurité
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project) => (
+              <div
+                key={project.id}
+                className="card group backdrop-blur-sm border border-white/10 hover:border-[#00ff8c]/30 transition-all duration-300 overflow-hidden"
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src={project.imageUrl}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  {project.star && (
+                    <div className="absolute top-2 right-2">
+                      <span className="text-yellow-400 text-2xl">⭐</span>
+                    </div>
+                  )}
+                  {project.pending && (
+                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="text-[#00ff8c] text-sm font-mono mb-2">EN DÉVELOPPEMENT</div>
+                        <div className="text-white/80 text-xs">{project.pendingMessage}</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-[#00ff8c] transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-300 mb-4 text-sm leading-relaxed">
+                    {project.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.map((tag, tagIndex) => (
+                      <span
+                        key={tagIndex}
+                        className="px-2 py-1 text-xs rounded-full border border-white/20 bg-white/5 text-gray-300"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <div className="flex gap-3">
+                    {project.demoUrl && (
+                      <Link
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 hacker-btn py-2 px-4 text-center text-sm"
+                      >
+                        Demo
+                      </Link>
+                    )}
+                    {project.codeUrl && (
+                      <Link
+                        href={project.codeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 py-2 px-4 text-center text-sm border border-white/30 bg-white/5 hover:bg-white/10 transition-all"
+                      >
+                        Code
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Version interactive pour les utilisateurs
   return (
     <section id="projets" className="py-20 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-[#00ff8c]/5 to-transparent opacity-50 z-0"></div>

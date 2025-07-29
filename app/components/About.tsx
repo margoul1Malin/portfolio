@@ -2,13 +2,17 @@
 
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { FaCode, FaShieldAlt, FaTerminal, FaLaptopCode, FaNetworkWired, FaWindows, FaLinux } from "react-icons/fa";
+import { FaCode, FaShieldAlt, FaTerminal, FaLaptopCode, FaNetworkWired, FaWindows, FaLinux, FaPython, FaGit, FaDocker, FaJs } from "react-icons/fa";
 import { PiStudentFill } from 'react-icons/pi';
+import { useJsDetection } from '../lib/js-detection';
 
 const About = () => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const { jsAvailable } = useJsDetection();
   
   useEffect(() => {
+    if (!jsAvailable) return;
+    
     const handleMouseMove = (e: MouseEvent) => {
       setCursorPosition({ x: e.clientX, y: e.clientY });
     };
@@ -17,20 +21,128 @@ const About = () => {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [jsAvailable]);
 
   // Définir les compétences avec des icônes et des couleurs
   const tags = [
     { name: 'Developpement', icon: <FaCode />, color: '#61DAFB' },
     { name: 'Cybersecurity', icon: <FaShieldAlt />, color: '#FF3E00' },
-    { name: 'Hacking', icon: <FaTerminal />, color: '#00FF8C' },
+    { name: 'Pentesting', icon: <FaTerminal />, color: '#00FF8C' },
     { name: 'Programmation', icon: <FaLaptopCode />, color: '#3178C6' },
     { name: 'Active Directory', icon: <FaNetworkWired />, color: '#5C2D91' },
     { name: 'Linux', icon: <FaLinux />, color: '#FCC624' },
     { name: 'Windows', icon: <FaWindows />, color: '#0078D6' },
-    { name: 'Teaching', icon: <PiStudentFill />, color: '#FFFFFF'    }
+    { name: 'Teaching', icon: <PiStudentFill />, color: '#FFFFFF'},
+    { name: 'Networking', icon: <FaNetworkWired />, color: '#00FF8C' },
+    { name: 'Python', icon: <FaPython />, color: '#0078D6' },
+    { name: 'Bash', icon: <FaTerminal />, color: '#FF3E00' },
+    { name: 'Git', icon: <FaGit />, color: '#5C2D91' },
+    { name: 'Docker', icon: <FaDocker />, color: '#FCC624' },
+    { name: 'Javascript', icon: <FaJs />, color: '#00FF8C' },
   ];
 
+  // Version statique pour les bots
+  if (!jsAvailable) {
+    return (
+      <>
+        {/* Cette div contient un flag caché qui sera visible dans le code source HTML */}
+
+        <section id="apropos" className="py-20 relative overflow-hidden">
+          {/* Fond dynamique avec motifs cyberpunk */}
+          <div className="absolute inset-0 z-0 opacity-10">
+            <div className="absolute inset-0 bg-[url('/circuit-pattern.png')] bg-repeat"></div>
+          </div>
+          
+          {/* Effet de grille */}
+          <div className="absolute inset-0 z-0 bg-[linear-gradient(rgba(0,255,140,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,140,0.05)_1px,transparent_1px)] bg-[size:30px_30px] opacity-30"></div>
+          
+          {/* Flag caché visible uniquement dans le code source */}
+          <div style={{ display: 'none' }} data-flag="FLAG{H4CK3R_1N_PR0GR3SS}">
+            Ce flag est visible uniquement dans le code source. Bravo pour votre curiosité !
+          </div>
+          
+          <div className="scanline"></div>
+          {/* Fin du fond dynamique */}
+          
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-3">
+                <span className="terminal-text">./</span>
+                <span className="text-gradient">À propos</span>
+              </h2>
+              <div className="w-24 h-1 bg-[#00ff8c] mx-auto rounded-full"></div>
+              <div className="h-px max-w-sm mx-auto mt-6 bg-gradient-to-r from-transparent via-[#00ff8c]/50 to-transparent"></div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-5 card p-6 relative backdrop-blur-sm border border-white/10 group">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#00ff8c]/5 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-bold mb-4 text-gradient">Qui suis-je ?</h3>
+                  <div className="space-y-4 text-gray-300">
+                    <div className="font-mono text-sm">
+                      <div className="text-[#00ff8c] mb-2">about_me.txt</div>
+                      <div className="space-y-2">
+                        <p>❯Développeur passionné avec sa propre expertise en sécurité informatique et développement web. J&apos;explore constamment les nouvelles technologies pour créer des solutions innovantes.</p>
+                        <p>❯Mon parcours mêle programmation et cybersécurité, me permettant d&apos;adopter une approche complète dans mes projets. Je m&apos;efforce de produire du code non seulement fonctionnel, mais aussi sécurisé et optimisé. Je peux aussi servir de &quot;&quot;&quot;professeur&quot;&quot;&quot; partiellement si vous souhaitez acquérier du savoir dans des domaines que je maîtrise.</p>
+                        <p>❯En veille technologique permanente, je m&apos;intéresse particulièrement à la manière dont les hackers utilisent l&apos;informatique, à la sécurité des applications et aux nouveautés dans le monde du code.</p>
+                      </div>
+                      <div className="mt-4">
+                        <div className="text-[#00ff8c]">$ cd ./expérience</div>
+                        <div className="mt-2 space-y-2">
+                          <div className="flex items-center">
+                            <span className="text-[#00ff8c] mr-2">▶</span>
+                            <span className="font-semibold">Développeur Full Stack</span>
+                            <span className="text-gray-400 ml-2">Since 2018</span>
+                          </div>
+                          <div className="text-sm text-gray-300 ml-6">Développement d&apos;applications web sécurisées avec des frameworks modernes comme Next.js ou Django</div>
+                          
+                          <div className="flex items-center">
+                            <span className="text-[#00ff8c] mr-2">▶</span>
+                            <span className="font-semibold">Pentester</span>
+                            <span className="text-gray-400 ml-2">Since 2023</span>
+                          </div>
+                          <div className="text-sm text-gray-300 ml-6">A mes heures perdues je me suis formé à la cybersécurité et j&apos;ai pu tester des systèmes d&apos;exploitation, des applications, des réseaux wifi, etc..</div>
+                          
+                          <div className="flex items-center">
+                            <span className="text-[#00ff8c] mr-2">▶</span>
+                            <span className="font-semibold">Informaticien</span>
+                            <span className="text-gray-400 ml-2">Since 2025</span>
+                          </div>
+                          <div className="text-sm text-gray-300 ml-6">J&apos;ai eu l&apos;occasion de suivre une formation très enrichissante chez Dawan pour comprendre le monde de l&apos;informatique plus en profondeur et notamment l&apos;Active Directory et les architectures réseaux en entreprise.</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="md:col-span-7">
+                <div className="card p-6 backdrop-blur-sm border border-white/10">
+                  <h3 className="text-2xl font-bold mb-6 text-gradient">Compétences & Technologies</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {tags.map((tag, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center gap-2 px-3 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
+                        style={{ borderColor: `${tag.color}40` }}
+                      >
+                        <span style={{ color: tag.color }}>{tag.icon}</span>
+                        <span className="text-sm font-medium">{tag.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </>
+    );
+  }
+
+  // Version interactive pour les utilisateurs
   return (
     <>
       {/* Cette div contient un flag caché qui sera visible dans le code source HTML */}
@@ -223,7 +335,7 @@ const About = () => {
                     {
                       title: "Pentester",
                       period: "Since 2023",
-                      description: "A mes heures perdues j'acquéris un grand savoir dans ce domaine. J'ai pu tester des systèmes d'exploitation, des applications, des réseaux wifi, etc.."
+                      description: "A mes heures perdues je me suis formé à la cybersécurité et j'ai pu tester des systèmes d'exploitation, des applications, des réseaux wifi, etc.."
                     },
                     {
                       title: "Informaticien",
