@@ -19,4 +19,4 @@ Disallow: /is-1t-a-fl4g
 # Indice: visitez cette URL pour découvrir un secret
 
 # Informations supplémentaires
-Sitemap: https://example.com/sitemap.xml 
+Sitemap: https://www.margoul1.xyz/sitemap.xml 
