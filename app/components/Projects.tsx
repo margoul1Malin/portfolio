@@ -89,6 +89,85 @@ const Projects = () => {
       pendingMessage: 'Version 1 bientôt disponible.',
       star: false
     },
+    {
+      id: 'landingwinalist',
+      title: "Landing Page - Winalist Le Clos des Rossignols",
+      description: "Landing Page pour un complexe de gîtes qui souhaite capturer du traffic à WinaList  grands requins de sa région et de son domaine.",
+      tags: ["Next.js", "TypeScript", "Tailwind", "Shadcn/UI", "MultiLingue", "i18n"],
+      imageUrl: "/landingwinalist.png",
+      demoUrl: "https://wina-list.fr/fr",
+      codeUrl: "https://github.com/margoul1Malin",
+      pending: false,
+      star: false
+    },
+    {
+      id: 'landingloirelover',
+      title: "Landing Page - LoireLovers - Le Clos des Rossignols",
+      description: "Landing Page pour un complexe de gîtes qui souhaite capturer du traffic à LoireLovers  grands requins de sa région et de son domaine.",
+      tags: ["Next.js", "TypeScript", "Tailwind", "Shadcn/UI", "MultiLingue", "i18n"],
+      imageUrl: "/landingloirelover.png",
+      demoUrl: "https://loirelover.fr/fr",
+      codeUrl: "https://github.com/margoul1Malin",
+      pending: false,
+      star: false
+    },
+    {
+      id: 'landingvaldeloire',
+      title: "Landing Page - Val De Loire France - Le Clos des Rossignols",
+      description: "Landing Page pour un complexe de gîtes qui souhaite capturer du traffic à Val De Loire France  grands requins de sa région et de son domaine.",
+      tags: ["Next.js", "TypeScript", "Tailwind", "Shadcn/UI", "MultiLingue", "i18n"],
+      imageUrl: "/landingvaldeloire.png",
+      demoUrl: "https://www.valdeloires-france.fr/fr",
+      codeUrl: "https://github.com/margoul1Malin",
+      pending: false,
+      star: false
+    },
+    {
+      id: 'landinggetyourguides',
+      title: "Landing Page - GetYourGuide - Le Clos des Rossignols",
+      description: "Landing Page pour un complexe de gîtes qui souhaite capturer du traffic à GetYourGuide  grands requins de sa région et de son domaine.",
+      tags: ["Next.js", "TypeScript", "Tailwind", "Shadcn/UI", "MultiLingue", "i18n"],
+      imageUrl: "/landinggetyourguides.png",
+      demoUrl: "https://www.getyourguides.fr/fr",
+      codeUrl: "https://github.com/margoul1Malin",
+      pending: false,
+      star: false
+    },
+    {
+      id: 'fiddizzy',
+      title: "Fiddizzy",
+      description: "Site, Logiciel, Application pour la gestion des entreprises facilitant la comptabilité, rh et assistanat et automatisation des tâches (Devis, Factures, Signatures Electroniques, etc.).",
+      tags: ["Next.js", "TypeScript", "Tailwind", "Shadcn/UI", "MultiLingue", "i18n", "OCR", "AI", "API", "Real Time Preview", "Multi Utilisateurs", "Multi Sociétés", "Etc..."],
+      imageUrl: "/fidizzy.png",
+      demoUrl: "https://github.com/margoul1Malin",
+      codeUrl: "https://github.com/margoul1Malin",
+      pending: true,
+      pendingMessage: 'En cours de développement...',
+      star: false
+    },
+    {
+      id: 'ticketizy',
+      title: "Ticketizy - Logiciel Windows",
+      description: "Logiciel Windows pour l'automatisation de création d'étiquettes d'exportations pour un client, avec extraction des données textuelles d'images.",
+      tags: ["Electron", "React", "OCR", "AI (Gemini)", "Windows 10/11", "Compatible macOS et Linux"],
+      imageUrl: "/Ticketizy.png",
+      demoUrl: "https://www.oxelya.com",
+      codeUrl: "https://github.com/margoul1Malin",
+      pending: false,
+      star: false
+    },
+    {
+      id: 'cronify',
+      title: "Cronify - Logiciel Windows",
+      description: "Logiciel Windows pour gérer les cronjobs et tâches planifiées, intéroperabilité sur tous systèmes et abordable pour des utilisateurs non-techniques.",
+      tags: ["Electron", "React", "Cronjobs / Scheduled Tasks", "Windows 10/11", "Compatible macOS et Linux"],
+      imageUrl: "/cronify.png",
+      demoUrl: "https://www.oxelya.com",
+      codeUrl: "https://github.com/margoul1Malin",
+      pending: false,
+      star: false
+    }
+
   ];
   
   const jsTags = ['TypeScript', 'React', 'Next.js', 'Node.JS', 'Electron', 'JavaScript', 'Vue.js'];

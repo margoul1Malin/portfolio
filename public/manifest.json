@@ -1,0 +1,26 @@
+{
+  "name": "Margoul1 - Développeur Web Full Stack",
+  "short_name": "Margoul1",
+  "description": "Portfolio professionnel de Margoul1, développeur web full stack spécialisé en React, Next.js, Django et Node.js",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#f59e0b",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["business", "productivity", "developer"],
+  "lang": "fr-FR",
+  "dir": "ltr"
+} 
